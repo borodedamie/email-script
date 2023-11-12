@@ -1,4 +1,5 @@
 const express = require('express');
+const fs = require('fs');
 const nodemailer = require('nodemailer');
 const multer = require('multer');
 const dotenv = require('dotenv');
@@ -7,6 +8,12 @@ const port = process.env.PORT
 
 const app = express()
 app.use(express.json());
+
+const dir = './uploads';
+
+if (!fs.existsSync(dir)){
+    fs.mkdirSync(dir);
+}
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
